@@ -1,3 +1,8 @@
+
+   // THIS CODE CAN USE IN GOOGLE SHEET IN THE WEB SCRIPT OR APP SCRIPT SECTION IN THE GOOGLE EXCEL SHEET.  //
+
+
+
 var sheetName = 'Sheet1'
 var scriptProp = PropertiesService.getScriptProperties()
 
