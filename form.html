@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binding Works</title>
+    <link rel="stylesheet" href="form.css">
+</head>
+<body>
+    <form class="form" name="submit-to-google-sheet" method="post">
+        <p class="title">Suyog Book Binding Works</p>
+            
+        <div class="flex">
+            <label>
+                <input placeholder="" type="text" class="input" name="Name" required>
+                <span>Name</span>
+            </label>
+    
+            <label style="margin-left: 240px;">
+                <input  placeholder="" type="text" class="input" name="Party Name" required>
+                <span>Party Name</span>
+            </label>
+        </div>  
+    
+        <label style="width: 44%;">
+            <input  placeholder="" type="text" class="input" name="Book Name" required>
+            <span>Book Name</span>
+        </label> 
+    
+        <label style="width: 44%;">
+            <input  placeholder="" type="date" class="input" name="Date" required>
+            <span></span>
+        </label>
+        <label style="width: 44%;">
+            <input  placeholder="" type="number" class="input" name="Qty" required>
+            <span>Quantity</span>
+        </label>
+    
+        <button class="submit" name="submit">Submit</button>
+        <div id="loading" style="display:none;">Submitting...</div>
+        <div id="success" style="display:none;">Data successfully inserted into Excel!</div>
+    </form>
+    
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxtz7bef5tSmwKThTe1TzemwWHrKj-30OTZU0bBPNENYHlX3m9SXsPTpwZ21TwGWS7ugQ/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const loadingDiv = document.getElementById('loading');
+    
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            loadingDiv.style.display = 'block'; 
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    console.log('Success!', response);
+                    alert('Data successfully inserted into Excel!');
+                    form.reset();
+                    loadingDiv.style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    loadingDiv.style.display = 'none'; 
+                });
+        });
+    </script>
+</body>
+</html>
